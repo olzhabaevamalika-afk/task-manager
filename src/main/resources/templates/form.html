@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout.html">
+<head>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f7faf7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2e7d32;
+            margin-top: 20px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cfd8dc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus {
+            outline: none;
+            border-color: #66bb6a;
+            box-shadow: 0 0 3px #a5d6a7;
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 6px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #66bb6a;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+
+        .btn:hover {
+            background-color: #57a05b;
+        }
+
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 th:text="${task.id} == null ? 'New Task' : 'Edit Task'"></h2>
+    <form th:action="${task.id} == null ? @{/tasks} : @{'/tasks/' + ${task.id}}"
+          th:object="${task}" method="post">
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" required><br><br>
+
+        <label>Date:</label>
+        <input type="text" th:field="*{deadlineDate}" placeholder="2025-10-05"><br><br>
+
+        <label>Is completed:</label>
+        <input type="checkbox" th:field="*{completed}"><br><br>
+
+        <button type="submit" class="btn">Save</button>
+    </form>
+</div>
+</body>
+</html>
